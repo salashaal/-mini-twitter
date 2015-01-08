@@ -1,0 +1,27 @@
+
+<h3><%= "#{@user.email}'s posts" %></h3>
+
+<table>
+  <% @posts.each do |post| %>
+    <tr>
+     <td><%= post.content %></td>
+    </tr>
+  <% end %>
+
+  <tr>
+   <td><%= form_for(current_user.relationships.build(followed_id: user.id)) do |f| %>
+  <div><%= f.hidden_field :followed_id %></div>
+  <%= f.submit "Follow"%>
+<% end %></td>
+
+   <td><%= form_for(current_user.relationships.build(followed_id: user.id)) do |f| %>
+  <div><%= f.hidden_field :followed_id %></div>
+  <%= f.submit "UnFollow"%>
+<% end %></td>  
+ <% end %>
+  </tr>
+
+</table>
+
+
+

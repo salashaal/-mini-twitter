@@ -1,0 +1,31 @@
+class RelationshipsController < ApplicationController
+
+  def create 
+    if(params[:commit] == 'Follow')
+      #debugger	
+      if (!Relationship.find_by_followed_id(params[:relationship][:followed_id]))      
+        current_user.follow(params[:relationship][:followed_id])
+	flash[:notice] = "You followed #{User.find(params[:relationship][:followed_id].to_i).email}"
+
+      else
+	flash[:notice] = "You are already following #{User.find(params[:relationship][:followed_id].to_i).email}"
+      end
+      redirect_to("/users")
+
+#######################################################	
+
+    else
+      # if(params[:commit] == 'UnFollow')
+      #debugger
+      if(Relationship.count > 0)
+        current_user.unfollow(params[:relationship][:followed_id])
+        flash[:notice] = "You unfollowed #{User.find(params[:relationship][:followed_id].to_i).email}"
+        redirect_to("/users")
+
+      else
+        flash[:notice] = "You are already not following #{User.find(params[:relationship][:followed_id].to_i).email}!"
+        redirect_to("/users")
+      end
+    end
+  end
+end

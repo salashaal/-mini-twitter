@@ -1,0 +1,25 @@
+<h1>Users</h1>
+
+<table>
+
+ <% @users.each do |user| %>
+  <tr>
+   <td><%= link_to "#{user.email}", "/users/#{user.id}", :method => 'get' %></td>
+  </tr>
+
+  <tr>
+   <td><%= form_for(current_user.relationships.build(followed_id: user.id)) do |f| %>
+  <div><%= f.hidden_field :followed_id %></div>
+  <%= f.submit "Follow" %>
+       <% end %></td>
+
+   <td><%= form_for(current_user.relationships.build(followed_id: user.id)) do |f| %>
+  <div><%= f.hidden_field :followed_id %></div>
+  <%= f.submit "UnFollow"%>
+       <% end %></td>  
+ <% end %>
+  </tr>
+
+</table>
+
+
